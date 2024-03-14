@@ -18,6 +18,9 @@ public class Person {
     public int returnHealth() {
         return health;
     }
+    public String menu() {
+        return "NAME: " + name + "\nLEVEL: " + level + "\nHEALTH: " + health;
+    }
 
     public void attack() {
         //IMPLEMENT

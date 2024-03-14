@@ -5,5 +5,11 @@ public class Terrain {
         this.name = name;
         this.level = level;
     }
+    public String returnName() {
+        return name;
+    }
+    public int returnLevel() {
+        return level;
+    }
 
 }
