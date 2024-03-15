@@ -12,7 +12,11 @@ public class Player extends Person{
     public int returnGold() {
         return gold;
     }
+    public void changeGold(int change) {
+        gold+=change;
+    }
+    @Override
     public String menu() {
-        return super.menu() + "\nGOLD: " + gold + "\nINVENTORY: "; //IMPLEMENT
+        return "------PLAYER MENU------\n" + super.menu() + "\nGOLD: " + gold + "\nINVENTORY: " + inventory.returnItems();
     }
 }
