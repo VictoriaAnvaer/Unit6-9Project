@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Shop {
     String[][] items;
     int[][] itemsPrice;
@@ -15,33 +17,39 @@ public class Shop {
         System.out.println("-3- LEAVE");
         System.out.print("SELECT AN OPTION: ");
     }
-    public boolean buyItem(String item, Player player) {
+    public String buyItem(String item, Player player) {
         for (int r = 0; r < items.length; r++) {
             for (int c = 0; c < items.length; c++) {
                 if (items[r][c] != null && items[r][c].equals(item)) {
                     if (player.returnGold() >= itemsPrice[r][c]) {
                         player.changeGold(-itemsPrice[r][c]);
                         player.returnInventory().addItem(items[r][c]);
-                        if (r == 1 || r == 2) {
+                        if (r == 0 || r == 1) {
                             items[r][c] = null;
                         }
-                        return true;
+                        return ("BOUGHT");
                     }
                 }
             }
         }
-        return false;
+        return ("TRANSACTION FAILED");
     }
-    public boolean sellItem(String item, Player player) {
+    public String sellItem(String item, Player player) {
+        ArrayList<String> playerInv = player.returnInventory().returnItems();
         for (int r = 0; r < items.length; r++) {
             for (int c = 0; c < items[r].length; c++) {
                 if (items[r][c] != null && items[r][c].equals(item)) {
-                    player.changeGold(itemsPrice[r][c]);
-                    return true;
+                    for (int i = 0; i < playerInv.size(); i++) {
+                        if (playerInv.get(i).equals(item)) {
+                            player.returnInventory().removeItem(i);
+                            player.changeGold(itemsPrice[r][c]);
+                            return ("SOLD");
+                        }
+                    }
                 }
             }
         }
-        return false;
+        return ("TRANSACTION FAILED");
     }
 
     public void itemCatalog() {

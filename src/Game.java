@@ -67,13 +67,13 @@ public class Game {
             if (itemBuy.equals("y")) {
                 System.out.print("SELECT AN ITEM NAME: ");
                 String itemSelect = SCANNER.nextLine();
-                shop.buyItem(itemSelect, player);
+                System.out.println(shop.buyItem(itemSelect, player));
             }
 
         } else if (shopChoice == 2) {
             System.out.print("ENTER AN ITEM NAME: ");
             String itemSell = SCANNER.nextLine();
-            shop.sellItem(itemSell, player);
+            System.out.println(shop.sellItem(itemSell, player));
 
         } else if (shopChoice == 3) {
             System.out.println("GOODBYE");

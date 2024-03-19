@@ -4,7 +4,7 @@ public class Player extends Person{
     Player(String name) {
         super(name, 1, 100);
         inventory = new Inventory();
-        gold = 0;
+        gold = 100;
     }
     public Inventory returnInventory() {
         return inventory;

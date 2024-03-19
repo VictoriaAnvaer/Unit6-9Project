@@ -21,6 +21,9 @@ public class Inventory {
     public void addItem(String item) {
         items.add(item);
     }
+    public void removeItem(int pos) {
+        items.remove(pos);
+    }
 
 
 }
