@@ -4,10 +4,12 @@ public class Game {
     private Town town;
     private Shop shop;
     private Player player;
+    private Cave cave;
     public Game() {
         town = new Town("Town", 1);
         shop = new Shop();
         player = null;
+        cave = new Cave("Cave", 1);
     }
     public void start() {
         welcomePlayer();
@@ -37,7 +39,7 @@ public class Game {
     private void choice(int choice) {
         System.out.println();
         if (choice == 1) {
-
+            caveMenu();
         } else if (choice == 2) {
 
         } else if (choice == 3) {
@@ -79,6 +81,22 @@ public class Game {
             System.out.println("GOODBYE");
         } else {
 
+        }
+    }
+    private void caveMenu() {
+        int caveChoice = -1;
+        while (caveChoice != 3) {
+            System.out.println("-------CAVE MENU-------");
+            System.out.println("-1- FIGHT MONSTERS");
+            System.out.println("-2- MINE");
+            System.out.println("-3- QUIT");
+            System.out.print("SELECT AN OPTION: ");
+            caveChoice = SCANNER.nextInt();
+            if (caveChoice == 1) {
+                cave.fightMenu();
+            } else if (caveChoice == 2) {
+                cave.mineMenu(player);
+            }
         }
     }
 }

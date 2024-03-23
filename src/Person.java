@@ -9,20 +9,26 @@ public class Person {
         this.health = health;
     }
 
-    public String returnName() {
+    public String getName() {
         return name;
     }
-    public int returnLevel() {
+    public int getLevel() {
         return level;
     }
-    public int returnHealth() {
+    public int getHealth() {
         return health;
     }
     public String menu() {
-        return "NAME: " + name + "\nLEVEL: " + level + "\nHEALTH: " + health;
+        return "NAME: " + name + " LEVEL: " + level + " HEALTH: " + health + "-";
     }
 
-    public void attack() {
-        //IMPLEMENT
+    public int attack() {
+        return ((int) (Math.random() * 5 + 2) + level);
+    }
+    public boolean defend() {
+        if ((int) (Math.random() * 100 + 1) > level * 5) {
+            return false;
+        }
+        return true;
     }
 }

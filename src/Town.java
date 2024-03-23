@@ -8,7 +8,4 @@ public class Town extends Terrain {
     public void trade() {
         //IMPLEMENT
     }
-    public void travel() {
-        //IMPLEMENT
-    }
 }

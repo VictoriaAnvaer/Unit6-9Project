@@ -19,4 +19,11 @@ public class Player extends Person{
     public String menu() {
         return "------PLAYER MENU------\n" + super.menu() + "\nGOLD: " + gold + "\nINVENTORY: " + inventory.returnItems();
     }
+    @Override
+    public boolean defend() {
+        if ((int) (Math.random() * 100 + 1) > (getLevel() + inventory.getShieldDefend()) * 5) {
+            return false;
+        }
+        return true;
+    }
 }

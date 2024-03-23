@@ -15,6 +15,9 @@ public class Inventory {
         items.add(swordName);
         items.add(shieldName);
     }
+    public int getShieldDefend() {
+        return shieldDefend;
+    }
     public ArrayList<String> returnItems() {
         return items;
     }
