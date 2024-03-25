@@ -10,7 +10,7 @@ public class Board {
         grid = new Space[5][5];
         grid[2][2] = new TakenSpace("XX");
         int low = 1;
-        for (int c = 0; c < 5; c++) {
+        for (int c = 0; c < grid[0].length; c++) {
             int[] ranArray = ranNum(low);
             int i = 0;
             for (int r = 0; r < grid.length; r++) {
@@ -26,11 +26,55 @@ public class Board {
     public boolean getIsWinner() {
         return isWinner;
     }
+    public void checkWinner() { // MAKE MORE EFFICIENT
+        // check each row
+        for (int r = 0; r < grid.length; r++) {
+            int taken = 0;
+            for (int c = 0; c < grid[r].length; c++) {
+                if (grid[r][c] instanceof TakenSpace) {
+                    taken++;
+                } else {
+                    c = 5;
+                }
+            }
+            if (taken == 5) {
+                isWinner = true;
+            }
+        }
+        // check each column
+        for (int c = 0; c < grid[0].length; c++) {
+            int taken = 0;
+            for (int r = 0; r < grid.length; r++) {
+                if (grid[r][c] instanceof TakenSpace) {
+                    taken++;
+                } else {
+                    r = 5;
+                }
+            }
+            if (taken == 5) {
+                isWinner = true;
+            }
+        }
+        // check diag
+        int taken = 0;
+        int taken1 = 0;
+        for (int i = 0; i < 5; i++) {
+            if (grid[i][i] instanceof TakenSpace) {
+                taken++;
+            }
+            if (grid[i][4 - i] instanceof TakenSpace) {
+                taken1++;
+            }
+        }
+        if (taken == 5 || taken1 == 5) {
+            isWinner = true;
+        }
+    }
     public void findDrawnNum() {
         int num = drawNum();
         System.out.println("Drawn number was: " + num);
-        for (int r = 0; r < 5; r++) {
-            for (int c = 0; c < 5; c++) {
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[r].length; c++) {
                 if (grid[r][c] instanceof NumberSpace) {
                     if (((NumberSpace) grid[r][c]).getNum() == num) {
                         grid[r][c] = new TakenSpace(grid[r][c].getSpace());
@@ -44,15 +88,15 @@ public class Board {
 
     @Override
     public String toString() {
-        String printBoard = ANSI.ANSI_BLACK_BACKGROUND + " B  I  N  G  O " + ANSI.ANSI_RESET + "\n";
-        for (int r = 0; r < 5; r++) {
-            for (int c = 0; c < grid.length; c++) {
+        String printBoard = Util.ANSI_BLACK_BACKGROUND + " B  I  N  G  O " + Util.ANSI_RESET + "\n";
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[r].length; c++) {
                 printBoard+= grid[r][c] + " ";
                 if (grid[r][c].getSpace().length() == 1) {
                     printBoard+=" ";
                 }
             }
-            printBoard+= ANSI.ANSI_RESET + "\n";
+            printBoard+= Util.ANSI_RESET + "\n";
         }
         return printBoard;
     }
