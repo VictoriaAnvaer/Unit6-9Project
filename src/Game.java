@@ -4,9 +4,11 @@ public class Game {
     private static final Scanner SCANNER = new Scanner(System.in);
     private Board board;
     private ArrayList<Board> boardList; // if player wants multiple boards or multiple players
+    private ArrayList<Board> winningBoardList; // winning boards so that it does not interfere with asking if player wants to continue
     private boolean game;
     public Game() {
         boardList = new ArrayList<>();
+        winningBoardList = new ArrayList<>();
         game = true;
     }
     public void start() {
@@ -26,30 +28,42 @@ public class Game {
         }
     }
     private void drawNumbers() {
-        while (game) {
+        while (game && !boardList.isEmpty()) {
             System.out.println();
-            for (int i = 0; i < boardList.size(); i++) {
-                System.out.println(boardList.get(i));
-            }
-            System.out.println("ENTER when you are ready to draw next number");
+            printBoards();
+            System.out.print("ENTER when you are ready to draw next number ");
             SCANNER.nextLine();
             int drawnNum = Board.drawNum();
             System.out.println("Drawn number was: " + drawnNum);
             for (int i = 0; i < boardList.size(); i++) {
                 boardList.get(i).findDrawnNum(drawnNum);
                 if (boardList.get(i).getIsWinner()) {
-                    //System.out.print(boardList.get(i).getName() + "'s board has won. Would you like to continue? [y/n] ");
-                    //String con = SCANNER.nextLine();
-                    //if (con.equals("n")) {
+                    System.out.println("\n" + boardList.get(i));
+                    System.out.print(boardList.get(i).getName() + "'s board has won. Would you like to continue? [y/n] ");
+                    String con = SCANNER.nextLine();
+                    if (con.equals("n")) {
                         game = false;
-                    //} FIX THIS PART SO THAT IT DOES NOT ASK EVERYTIME
+                    } else {
+                        winningBoardList.add(winningBoardList.size(), boardList.remove(i));
+                    }
                 }
             }
         }
+        System.out.println();
+        printBoards();
+        System.out.println();
+        System.out.println("Congratulations! You got a bingo.");
+    }
+
+    private void printBoards() {
         for (int i = 0; i < boardList.size(); i++) {
             System.out.println(boardList.get(i));
-            System.out.println();
         }
-        System.out.println("Congratulations! Your board has won.");
+        if (!winningBoardList.isEmpty()) {
+            System.out.println("Winning Boards: ");
+        }
+        for (int i = 0; i < winningBoardList.size(); i++) {
+            System.out.println(winningBoardList.get(i));
+        }
     }
 }
