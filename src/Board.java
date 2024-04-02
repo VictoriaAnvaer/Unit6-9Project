@@ -58,7 +58,11 @@ public class Board {
         String printBoard = name + "\n" + Util.ANSI_BLACK_BACKGROUND + " B  I  N  G  O " + Util.ANSI_RESET + "\n";
         for (int r = 0; r < grid.length; r++) {
             for (int c = 0; c < grid[r].length; c++) {
-                printBoard+= grid[r][c] + " ";
+                if (grid[r][c] instanceof TakenSpace) {
+                    printBoard+=Util.ANSI_RED_BACKGROUND + grid[r][c] + Util.ANSI_WHITE_BACKGROUND + " ";
+                } else {
+                    printBoard+=Util.ANSI_WHITE_BACKGROUND + grid[r][c] + " ";
+                }
                 if (grid[r][c].getSpace().length() == 1) {
                     printBoard+=" ";
                 }
@@ -76,9 +80,17 @@ public class Board {
         return ranArray;
     }
     private void checkWinner() { // MAKE MORE EFFICIENT
-        // check each row
+        // check each row and diag
+        int diag = 0;
+        int diag1 = 0;
         for (int r = 0; r < grid.length; r++) {
             int taken = 0;
+            if (grid[r][r] instanceof TakenSpace) {
+                diag++;
+            }
+            if (grid[r][4 - r] instanceof TakenSpace) {
+                diag1++;
+            }
             for (int c = 0; c < grid[r].length; c++) {
                 if (grid[r][c] instanceof TakenSpace) {
                     taken++;
@@ -88,7 +100,12 @@ public class Board {
             }
             if (taken == 5) {
                 isWinner = true;
+                return;
             }
+        }
+        if (diag == 5 || diag1 == 5) {
+            isWinner = true;
+            return;
         }
         // check each column
         for (int c = 0; c < grid[0].length; c++) {
@@ -102,21 +119,8 @@ public class Board {
             }
             if (taken == 5) {
                 isWinner = true;
+                return;
             }
-        }
-        // check diag
-        int taken = 0;
-        int taken1 = 0;
-        for (int i = 0; i < 5; i++) {
-            if (grid[i][i] instanceof TakenSpace) {
-                taken++;
-            }
-            if (grid[i][4 - i] instanceof TakenSpace) {
-                taken1++;
-            }
-        }
-        if (taken == 5 || taken1 == 5) {
-            isWinner = true;
         }
     }
 }
