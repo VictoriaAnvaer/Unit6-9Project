@@ -8,7 +8,7 @@ public class NumberSpace extends Space {
         return num;
     }
     public String toString() {
-        return Util.ANSI_WHITE_BACKGROUND + super.toString();
+        return super.toString();
 
     }
 }
