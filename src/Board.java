@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 public class Board {
+    // VVV static so that all boards across the game have the same numbers drawn, just like a real Bingo game VVV
+    private static ArrayList<Integer> drawNum = new ArrayList<>();
     private String name;
     private Space[][] grid;
     private boolean isWinner;
-    // VVV static so that all boards across the game have the same numbers drawn, just like a real Bingo game VVV
-    public static ArrayList<Integer> drawNum = new ArrayList<>();
     Board(String name) {
         this.name = name;
         //setting up grid
