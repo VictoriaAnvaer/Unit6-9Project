@@ -7,8 +7,4 @@ public class NumberSpace extends Space {
     public int getNum() {
         return num;
     }
-    public String toString() {
-        return super.toString();
-
-    }
 }

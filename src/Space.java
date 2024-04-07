@@ -6,9 +6,11 @@ public class Space {
     public String getSpace() {
         return space;
     }
-
     @Override
     public String toString() {
+        if (space.length() == 1) {
+            return " " + space;
+        }
         return space;
     }
 }

@@ -3,6 +3,7 @@ public class Board {
     private String name;
     private Space[][] grid;
     private boolean isWinner;
+    // VVV static so that all boards across the game have the same numbers drawn, just like a real Bingo game VVV
     public static ArrayList<Integer> drawNum = new ArrayList<>();
     Board(String name) {
         this.name = name;
@@ -32,6 +33,7 @@ public class Board {
         int num = (int) ( Math.random() * 74) + 1;
         for (int i = 0; i < drawNum.size(); i++) {
             if (drawNum.get(i) == num) {
+                // keeps drawing numbers until it gets a number that has not been drawn already
                 num = (int) ( Math.random() * 74) + 1;
                 i = 0;
             }
@@ -55,16 +57,13 @@ public class Board {
 
     @Override
     public String toString() {
-        String printBoard = name + "\n" + Util.ANSI_BLACK_BACKGROUND + " B  I  N  G  O " + Util.ANSI_RESET + "\n";
+        String printBoard = name + "\n" + Util.ANSI_BLACK_BACKGROUND + " B  I  N  G  O " + Util.ANSI_RESET + "\n" + Util.ANSI_WHITE_BACKGROUND;
         for (int r = 0; r < grid.length; r++) {
             for (int c = 0; c < grid[r].length; c++) {
                 if (grid[r][c] instanceof TakenSpace) {
-                    printBoard+=Util.ANSI_RED_BACKGROUND + grid[r][c] + Util.ANSI_WHITE_BACKGROUND + " ";
+                    printBoard+=grid[r][c] + " ";
                 } else {
                     printBoard+=Util.ANSI_WHITE_BACKGROUND + grid[r][c] + " ";
-                }
-                if (grid[r][c].getSpace().length() == 1) {
-                    printBoard+=" ";
                 }
             }
             printBoard+= Util.ANSI_RESET + "\n";
@@ -79,8 +78,9 @@ public class Board {
         Util.shuffle(ranArray);
         return ranArray;
     }
-    private void checkWinner() { // MAKE MORE EFFICIENT
-        // check each row and diag
+    private void checkWinner() {
+        // check each row and diagonals
+        // early return statements to reduce redundancy
         int diag = 0;
         int diag1 = 0;
         for (int r = 0; r < grid.length; r++) {

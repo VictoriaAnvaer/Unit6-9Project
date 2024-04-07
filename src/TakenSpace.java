@@ -3,7 +3,7 @@ public class TakenSpace extends Space {
         super(space);
     }
     public String toString() {
-        return super.toString();
+        return Util.ANSI_RED_BACKGROUND + super.toString() + Util.ANSI_WHITE_BACKGROUND;
     }
 
 }
